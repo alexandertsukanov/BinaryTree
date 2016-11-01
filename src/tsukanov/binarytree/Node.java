@@ -1,4 +1,4 @@
-package com.alexander;
+package tsukanov.binarytree;
 
 /**
  * Created by alex on 10/28/16.
