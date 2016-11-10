@@ -1,18 +1,25 @@
 package tsukanov.binarytree;
 
-/**
- * Created by alex on 10/28/16.
- */
 
+import com.sun.tools.internal.ws.wsdl.framework.DuplicateEntityException;
 
 public class Tree {
 
     private Node root;
+    private int Nodes = 0;
+
 
     public Tree() {
         this.root = null;
     }
 
+    public int getNodes() {
+        return Nodes;
+    }
+
+    public void setNodes(int nodes) {
+        Nodes = nodes;
+    }
 
     public void insert(int data) {
         root = insert(root, data, null);
@@ -20,11 +27,15 @@ public class Tree {
 
     private Node insert(Node current, int data, Node parent) {
         if (current == null) {
+            if(find(data) != null){
+                throw new IllegalArgumentException("Vertex can't be duplicated");
+            }
             current = new Node();
             current.setData(data);
             current.setLeft(null);
             current.setRight(null);
             current.setParent(parent);
+            Nodes++;
         } else if (data < current.getData()) {
             current.setLeft(insert(current.getLeft(), data, current));
         } else {
@@ -36,6 +47,7 @@ public class Tree {
     public Node find(int data) {
         return find(root, data);
     }
+
 
     private Node find(Node current, int data) {
         if (current == null)
@@ -53,6 +65,8 @@ public class Tree {
         }
         return min;
     }
+
+
     public void delete(int data) {
         root = delete(root, data);
     }
@@ -99,9 +113,20 @@ public class Tree {
         return startNode;
     }
 
+    public int height() {
+        if(root == null) return 0;
+        return 1 + Math.max(height(root.getLeft()), height(root.getRight()));
+    }
+
+    private int height(Node current) {
+        if(current == null) return 0;
+        return 1 + Math.max(height(current.getLeft()), height(current.getRight()));
+    }
+
     public void traverseTree(TraverseType traverseType) {
         traverseTree(root, traverseType);
         System.out.println();
+
     }
 
     private void traverseTree(Node current, TraverseType traverseType) {
@@ -110,23 +135,43 @@ public class Tree {
         switch (traverseType) {
             case INORDER:
                 traverseTree(current.getLeft(), traverseType);
-                current.getData();
+                System.out.println(current.getData());
                 traverseTree(current.getRight(), traverseType);
                 break;
             case PREORDER:
-                current.getData();
+                System.out.println(current.getData());
                 traverseTree(current.getLeft(), traverseType);
                 traverseTree(current.getRight(), traverseType);
                 break;
             case POSTORDER:
                 traverseTree(current.getLeft(), traverseType);
                 traverseTree(current.getRight(), traverseType);
-                current.getData();
+                System.out.println(current.getData());
                 break;
         }
     }
 
+    public void DFS(int v) {
+        if (find(v) == null)
+            return;
+        Node current = find(v);
+        System.out.println(current.getData());
+        DFS(current.getLeft());
+        DFS(current.getRight());
+    }
+
+    private void DFS(Node current) {
+        if (current == null)
+            return;
+        System.out.println(current.getData());
+
+        DFS(current.getRight());
+        DFS(current.getLeft());
 
 
-
+    }
 }
+
+
+
+

@@ -9,6 +9,7 @@ public class Node {
     private Node left;
     private Node right;
     private Node parent;
+    boolean isVisited = false;
 
     public int getData() {
         return this.data;
