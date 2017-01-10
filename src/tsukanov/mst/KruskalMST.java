@@ -102,11 +102,4 @@ class KruskalMST {
         return true;
     }
 
-
-    public static void main(String[] args) {
-
-        EdgeWeightedGraph G = new EdgeWeightedGraph(7, 6);
-
-    }
-
 }
