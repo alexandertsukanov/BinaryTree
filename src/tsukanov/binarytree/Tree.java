@@ -1,8 +1,6 @@
 package tsukanov.binarytree;
 
 
-import com.sun.tools.internal.ws.wsdl.framework.DuplicateEntityException;
-
 public class Tree {
 
     private Node root;
@@ -155,19 +153,31 @@ public class Tree {
         if (find(v) == null)
             return;
         Node current = find(v);
+        current.isVisited = true;
         System.out.println(current.getData());
+        System.out.println(current.getParent());
         DFS(current.getLeft());
         DFS(current.getRight());
     }
 
     private void DFS(Node current) {
+
         if (current == null)
             return;
         System.out.println(current.getData());
 
-        DFS(current.getRight());
-        DFS(current.getLeft());
+        current.isVisited = true;
 
+
+        if(current.getRight() != null && !current.getRight().isVisited){
+            DFS(current.getRight());
+        }
+        else if(current.getLeft() != null && !current.getLeft().isVisited) {
+            DFS(current.getLeft());
+        }
+        else{
+            DFS(current.getParent());
+        }
 
     }
 }
