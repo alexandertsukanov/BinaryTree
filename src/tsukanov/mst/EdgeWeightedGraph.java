@@ -37,7 +37,7 @@ public class EdgeWeightedGraph {
         this(G.V());
         this.E = G.E();
         for (int v = 0; v < G.V(); v++) {
-            // reverse so that adjacency list is in same order as original
+
             Stack<Edge> reverse = new Stack<Edge>();
             for (Edge e : G.adj[v]) {
                 reverse.push(e);
@@ -57,7 +57,6 @@ public class EdgeWeightedGraph {
         return E;
     }
 
-    // throw an IllegalArgumentException unless {@code 0 <= v < V}
     private void validateVertex(int v) {
         if (v < 0 || v >= V)
             throw new IllegalArgumentException("vertex " + v + " is not between 0 and " + (V-1));

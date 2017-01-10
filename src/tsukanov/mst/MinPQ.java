@@ -84,7 +84,7 @@ public class MinPQ<Key> implements Iterable<Key> {
         exch(1, n);
         Key min = pq[n--];
         sink(1);
-        pq[n+1] = null;         // avoid loitering and help with garbage collection
+        pq[n+1] = null;
         if ((n > 0) && (n == (pq.length - 1) / 4)) resize(pq.length  / 2);
         assert isMinHeap();
         return min;
